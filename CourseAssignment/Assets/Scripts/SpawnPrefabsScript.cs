@@ -15,7 +15,7 @@ public class SpawnPrefabsScript : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating("SpawnEnemy", 0f, delayBetweenSpawns);
+        InvokeRepeating(nameof(SpawnEnemy), 0f, delayBetweenSpawns);
     }
 
     private void SpawnEnemy()
