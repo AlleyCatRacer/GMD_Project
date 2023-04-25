@@ -6,7 +6,7 @@ namespace Projectile_Scripts
 {
     public class DetectionScript : MonoBehaviour
     {
-        private readonly List<GameObject> enemiesInRange = new ();
+        private List<GameObject> enemiesInRange = new ();
 
         private void OnTriggerEnter(Collider other)
         {

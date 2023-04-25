@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 301306145551439094}
   - component: {fileID: 4648134302229670530}
   - component: {fileID: 1679391926672497652}
+  - component: {fileID: 7702494323753271918}
   m_Layer: 0
   m_Name: Model
   m_TagString: Enemy
@@ -97,6 +98,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &7702494323753271918
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5734160148660623580}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8782935490530572086
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,7 +124,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2547612380168619461}
   - component: {fileID: 2512020946018285975}
-  - component: {fileID: -8650175939848148132}
   m_Layer: 0
   m_Name: Enemy 1
   m_TagString: Enemy
@@ -144,16 +160,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
---- !u!135 &-8650175939848148132
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8782935490530572086}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.7
-  m_Center: {x: 0, y: 0, z: 0}

@@ -9,7 +9,7 @@ namespace Projectile_Scripts
         private Rigidbody projectilePrefab;
 
         [SerializeField]
-        private float firingForce = 500f;
+        private float firingForce = 2000f;
 
         [SerializeField]
         private Transform firingPoint;
@@ -25,7 +25,7 @@ namespace Projectile_Scripts
         private void Shoot()
         {
             var projectile = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
-            projectile.AddForce(projectile.transform.position * firingForce);
+            projectile.AddForce(projectile.transform.forward * firingForce);
         }
     }
 }

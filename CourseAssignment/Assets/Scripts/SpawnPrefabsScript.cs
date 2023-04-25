@@ -4,7 +4,7 @@ using UnityEngine;
 public class SpawnPrefabsScript : MonoBehaviour
 {
     [SerializeField] private GameObject[] spawnablePrefabs;
-    [SerializeField] private float delayBetweenSpawns = 1f;
+    [SerializeField] private float delayBetweenSpawns = 5f;
 
     private Spline path;
 
