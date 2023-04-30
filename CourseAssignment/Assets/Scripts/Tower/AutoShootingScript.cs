@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -21,6 +22,7 @@ namespace Tower
         // Target Info
         private List<Transform> _targetLocations = new();
         private Transform _currentTarget;
+        private Transform _deadTarget;
 
         // Other things
         private float _currentCooldown;
@@ -56,39 +58,71 @@ namespace Tower
         void Update()
         {
             // Check for a Target
-            if (_currentTarget == null) return;
-
-            // Look at the Target
-            transform.LookAt(_currentTarget, Vector3.up);
-            transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
+            if (_currentTarget == null)
+            {
+                TargetKilled();
+            }
         }
 
         private void FixedUpdate()
         {
             // Reduce Cooldown
             _currentCooldown -= Time.deltaTime;
+            
+            // Find target
+            Retarget();
 
-            if (!_targetLocations.Any()) return;
-            _currentTarget = _targetLocations[0];
-
-            // Check if Shooting is available
-            if (_currentCooldown < 0f)
+            // Check if Shooting is available and there is a target in range
+            if (_currentCooldown <= 0f && _currentTarget != null)
             {
-                // Ensure the Target is being looked at, even if Framerate is dying
-                transform.LookAt(_currentTarget, Vector3.up);
-                transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
-                // Replace with a LERP to figure out angle, use angle later to ensure target is close enough in sight for
+                Shoot();
 
-                // Shoot
-                var bullet = Instantiate(bulletPrefab, bulletSpawnLocation.position, Quaternion.identity);
-                bullet.transform.LookAt(_currentTarget, Vector3.up);
-
-                // Set Timer on Bullet
-                Destroy(bullet, _bulletLifeDuration);
-
+                // Check if bullet killed enemy and retarget if necessary
+                if (_currentTarget == null)
+                {
+                    TargetKilled();
+                }
+                
                 // Reset Cooldown
                 _currentCooldown = fireDelay;
             }
+        }
+
+        private void Shoot()
+        {
+            // Store target to remove from target list in case it is killed
+            _deadTarget = _currentTarget;
+            var bullet = Instantiate(bulletPrefab, bulletSpawnLocation.position, Quaternion.identity);
+            bullet.transform.LookAt(_currentTarget, Vector3.up);
+            
+            // Set Timer on Bullet
+            Destroy(bullet, _bulletLifeDuration);
+        }
+
+        private void TargetKilled()
+        {
+            try
+            {
+                _targetLocations.Remove(_deadTarget);
+            }
+            catch (NullReferenceException e)
+            {
+                UnityEngine.Debug.Log($"----- Dead enemy not found in target list:\n{e.Message}");
+            }
+            _deadTarget = null;
+            Retarget();
+        }
+
+        public void Retarget()
+        {
+            // Check if any targets are in range and if so target the first one on the list
+            if (!_targetLocations.Any()) return;
+            _currentTarget = _targetLocations[0];
+            
+            // Ensure the Target is being looked at, even if Framerate is dying
+            transform.LookAt(_currentTarget, Vector3.up);
+            transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
+            // Replace with a LERP to figure out angle, use angle later to ensure target is close enough in sight for
         }
     }
 }

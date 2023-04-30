@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using UnityEditor;
-using System;
+﻿using System;
+using UnityEngine;
 
-namespace SplineMesh {
+namespace SplineMesh.Scripts.MeshProcessing {
     [Serializable]
     public class MeshVertex {
         public Vector3 position;

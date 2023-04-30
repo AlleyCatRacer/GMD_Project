@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace SplineMesh {
+namespace SplineMesh.Scripts.Utils {
     public static class CameraUtility {
         public static bool IsOnScreen(Vector3 position) {
             Vector3 onScreen = Camera.current.WorldToViewportPoint(position);

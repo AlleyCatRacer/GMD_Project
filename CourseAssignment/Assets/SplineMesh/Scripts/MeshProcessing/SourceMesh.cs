@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using UnityEngine;
+using MeshUtility = SplineMesh.Scripts.Utils.MeshUtility;
 
-namespace SplineMesh {
+namespace SplineMesh.Scripts.MeshProcessing {
     /// <summary>
     /// This class returns a transformed version of a given source mesh, plus others
     /// informations to help bending the mesh along a curve.

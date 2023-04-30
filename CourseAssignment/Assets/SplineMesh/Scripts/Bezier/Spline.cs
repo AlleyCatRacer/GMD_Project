@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace SplineMesh {
+namespace SplineMesh.Scripts.Bezier {
     /// <summary>
     /// A curved line made of oriented nodes.
     /// Each segment is a cubic Bézier curve connected to spline nodes.

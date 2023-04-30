@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace XcelerateGames.Editor
+namespace Editor
 {
     /// <summary>
     /// A helper class that runs only on IDE to help speedup or slow down the game

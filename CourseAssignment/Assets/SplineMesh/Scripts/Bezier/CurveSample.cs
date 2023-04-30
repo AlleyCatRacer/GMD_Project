@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using SplineMesh.Scripts.MeshProcessing;
 using UnityEngine;
 
-namespace SplineMesh {
+namespace SplineMesh.Scripts.Bezier {
     /// <summary>
     /// Imutable class containing all data about a point on a cubic bezier curve.
     /// </summary>

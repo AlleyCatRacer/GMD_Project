@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using SplineMesh.Scripts.Bezier;
+using SplineMesh.Scripts.Utils;
 using UnityEngine;
 
-namespace SplineMesh {
+namespace SplineMesh.Scripts.MeshProcessing {
     [ExecuteInEditMode]
     [DisallowMultipleComponent]
     [RequireComponent(typeof(MeshFilter))]

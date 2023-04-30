@@ -1,10 +1,12 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using SplineMesh.Scripts.Bezier;
+using SplineMesh.Scripts.MeshProcessing;
+using SplineMesh.Scripts.Utils;
 using UnityEditor;
+using UnityEngine;
 
-namespace SplineMesh {
+namespace SplineMesh.Scripts.Editor {
     [CustomEditor(typeof(SplineExtrusion))]
-    public class SplineExtrusionEditor : Editor {
+    public class SplineExtrusionEditor : UnityEditor.Editor {
         private const int QUAD_SIZE = 10;
         private Color CURVE_COLOR = new Color(0.8f, 0.8f, 0.8f);
         private bool mustCreateNewNode = false;

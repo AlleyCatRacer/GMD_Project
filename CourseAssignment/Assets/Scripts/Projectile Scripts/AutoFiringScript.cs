@@ -28,7 +28,7 @@ namespace Projectile_Scripts
 
         public IEnumerator FiringLoop()
         {
-            Debug.Log($"Engaged ice cream launcher at {Time.time}");
+            UnityEngine.Debug.Log($"Engaged ice cream launcher at {Time.time}");
             //Should we make the fire rate dynamic by creating the var inside the loop for upgrading towers and such? - Aldís 30.03.23 
             var wait = new WaitForSeconds(waitTime);
             isFiring = true;
@@ -39,7 +39,7 @@ namespace Projectile_Scripts
             }
 
             isFiring = false;
-            Debug.Log($"Ceased fire at {Time.time}");
+            UnityEngine.Debug.Log($"Ceased fire at {Time.time}");
         }
         
         private void CheckTargets()

@@ -1,10 +1,11 @@
-﻿using UnityEngine;
-using UnityEditor;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SplineMesh.Scripts.Bezier;
+using UnityEngine;
+using MeshUtility = SplineMesh.Scripts.Utils.MeshUtility;
 
-namespace SplineMesh {
+namespace SplineMesh.Scripts.MeshProcessing {
     /// <summary>
     /// A component that creates a deformed mesh from a given one along the given spline segment.
     /// The source mesh will always be bended along the X axis.
@@ -303,7 +304,7 @@ namespace SplineMesh {
                         float distOnSpline = intervalStart + intervalLength * distanceRate;
                         if(distOnSpline > spline.Length) {
                             distOnSpline = spline.Length;
-                            Debug.Log("dist " + distOnSpline + " spline length " + spline.Length + " start " + intervalStart);
+                            UnityEngine.Debug.Log("dist " + distOnSpline + " spline length " + spline.Length + " start " + intervalStart);
                         }
 
                         sample = spline.GetSampleAtDistance(distOnSpline);

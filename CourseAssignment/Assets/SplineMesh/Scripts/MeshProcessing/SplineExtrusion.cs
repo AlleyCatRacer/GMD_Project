@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using SplineMesh.Scripts.Bezier;
+using SplineMesh.Scripts.Utils;
 using UnityEngine;
 
-namespace SplineMesh {
+namespace SplineMesh.Scripts.MeshProcessing {
     /// <summary>
     /// Special component to extrude shape along a spline.
     /// 

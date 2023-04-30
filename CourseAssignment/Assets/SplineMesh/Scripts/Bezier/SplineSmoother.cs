@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace SplineMesh {
+namespace SplineMesh.Scripts.Bezier {
     [DisallowMultipleComponent]
     [ExecuteInEditMode]
     [RequireComponent(typeof(Spline))]

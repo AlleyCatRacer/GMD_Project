@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace SplineMesh {
+namespace SplineMesh.Scripts.Bezier {
     /// <summary>
     /// Mathematical object for cubic Bézier curve definition.
     /// It is made of two spline nodes which hold the four needed control points : two positions and two directions

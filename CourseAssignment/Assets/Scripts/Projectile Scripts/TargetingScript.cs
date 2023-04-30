@@ -33,8 +33,6 @@ namespace Projectile_Scripts
                 return;
             }
         
-            Debug.DrawLine(transform.position, targetEnemy.transform.position, Color.red);
-        
             // If target moved since last time update the position
             if (lastKnownPosition != targetEnemy.transform.position)
             {

@@ -1,9 +1,8 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using System;
 using System.Linq;
-using System;
+using UnityEngine;
 
-namespace SplineMesh {
+namespace SplineMesh.Scripts.Utils {
     public static class UOUtility {
         public static GameObject Create(string name, GameObject parent, params Type[] components) {
             var res = new GameObject(name, components);

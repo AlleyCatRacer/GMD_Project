@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using SplineMesh.Scripts.Bezier;
+using SplineMesh.Scripts.Utils;
 using UnityEditor;
 using UnityEngine;
 
-namespace SplineMesh {
+namespace SplineMesh.Scripts.Editor {
     [CustomEditor(typeof(Spline))]
-    public class SplineEditor : Editor {
+    public class SplineEditor : UnityEditor.Editor {
 
         private const int QUAD_SIZE = 12;
         private static Color CURVE_COLOR = new Color(0.8f, 0.8f, 0.8f);

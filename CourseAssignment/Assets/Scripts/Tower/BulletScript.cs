@@ -19,7 +19,6 @@ namespace Tower
         private void OnTriggerEnter(Collider other)
         {
             Destroy(gameObject);
-            // TODO: Kill enemy as well - Aldís 29.04.23
         }
     }
 }

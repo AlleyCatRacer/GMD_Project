@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace SplineMesh {
+namespace SplineMesh.Scripts.Bezier {
     /// <summary>
     /// Spline node storing a position and a direction (tangent).
     /// Note : you shouldn't modify position and direction manualy but use dedicated methods instead, to insure event raising.
