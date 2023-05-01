@@ -8,7 +8,7 @@ namespace Enemy
     public class EnemyScript : MonoBehaviour
     {
         [SerializeField] public float enemyHealth = 2.0f;
-
+        [SerializeField] public bool immortal = false;
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("Projectile"))
@@ -17,7 +17,13 @@ namespace Enemy
 
         private void DecrementHealth()
         {
+            // Return if the enemy is Immortal
+            if (immortal) return;
+            
+            // Reduce Health
             enemyHealth--;
+            
+            // Check if Enemy should be killed
             if (enemyHealth <= 0)
                 OnDeath();
         }
@@ -25,6 +31,7 @@ namespace Enemy
         private void OnDeath()
         {
             // For additional behaviour on death
+            // Andreas: EXPLOSIONS!
             Destroy(gameObject);
         }
     }

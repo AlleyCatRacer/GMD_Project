@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utility;
 
 namespace Tower
 {
@@ -45,8 +46,24 @@ namespace Tower
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Enemy"))
-                _targetLocations.Add(other.transform);
+            // Check if the incoming Collider belongs to an Enemy
+            if (other.transform.parent.CompareTag("Enemy"))
+            {
+                // Check if the enemy is already added
+                if (_targetLocations.Contains(other.transform.parent)) return;
+                
+                // Check if the Enemy is further ahead on the Track than other enemies
+                if (_targetLocations.Count < 1 ||
+                    !(other.GetComponentInParent<FollowPathScript>().Progress >
+                      _targetLocations[0].GetComponentInParent<FollowPathScript>().Progress))
+                {
+                    _targetLocations.Add(other.transform);
+                }
+                else
+                {
+                    _targetLocations.Insert(0, other.transform);
+                }
+            }
         }
 
         private void OnTriggerExit(Collider other)
@@ -68,7 +85,7 @@ namespace Tower
         {
             // Reduce Cooldown
             _currentCooldown -= Time.deltaTime;
-            
+
             // Find target
             Retarget();
 
@@ -82,7 +99,7 @@ namespace Tower
                 {
                     TargetKilled();
                 }
-                
+
                 // Reset Cooldown
                 _currentCooldown = fireDelay;
             }
@@ -94,7 +111,7 @@ namespace Tower
             _deadTarget = _currentTarget;
             var bullet = Instantiate(bulletPrefab, bulletSpawnLocation.position, Quaternion.identity);
             bullet.transform.LookAt(_currentTarget, Vector3.up);
-            
+
             // Set Timer on Bullet
             Destroy(bullet, _bulletLifeDuration);
         }
@@ -109,16 +126,23 @@ namespace Tower
             {
                 UnityEngine.Debug.Log($"----- Dead enemy not found in target list:\n{e.Message}");
             }
+
             _deadTarget = null;
             Retarget();
         }
 
-        public void Retarget()
+        private void Retarget()
         {
             // Check if any targets are in range and if so target the first one on the list
-            if (!_targetLocations.Any()) return;
+            if (!_targetLocations.Any())
+            {
+                _currentTarget = null;
+                return;
+            }
+
+            // Set Current Target as the First
             _currentTarget = _targetLocations[0];
-            
+
             // Ensure the Target is being looked at, even if Framerate is dying
             transform.LookAt(_currentTarget, Vector3.up);
             transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
