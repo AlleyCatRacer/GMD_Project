@@ -11,3 +11,5 @@
 [Movement in a World](https://gyazo.com/04bb050569fa1449d82dfc9e996214d9) as a GIF
 
 [3D Mesh Added](https://gyazo.com/ef513dcf2734755cdd5aeb997530e36f) as a GIF
+
+[Tower and Enemies](https://gyazo.com/57a4f1c3cb07ad12820afd1ae3db0399) as a GIF
