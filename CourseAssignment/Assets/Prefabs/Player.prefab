@@ -132,6 +132,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc297fc4a774dbc48a94c23eeea69f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildablePrefabs:
+  - {fileID: 8714092537757024827, guid: cb40d5ec27425404bb75e3c0c23721d5, type: 3}
+  - {fileID: 7174720972909660327, guid: b21b0435273c66346b6093ed99e29988, type: 3}
+  buildRenderer: {fileID: 5299768251074708112}
 --- !u!1 &2052308357170120943
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,7 +165,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5299768251074708112}
   m_Father: {fileID: 2052308356534173637}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -216,3 +221,34 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2052308357170120943}
   m_Enabled: 1
+--- !u!1 &6020252591157678336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5299768251074708112}
+  m_Layer: 0
+  m_Name: Build Renderer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5299768251074708112
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6020252591157678336}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.7, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2052308357170120936}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
