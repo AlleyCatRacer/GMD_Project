@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Debug
+namespace Utility
 {
     public class LineBetween : MonoBehaviour
     {

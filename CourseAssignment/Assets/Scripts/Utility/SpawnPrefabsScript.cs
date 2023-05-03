@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Enemy;
+using Path;
 using SplineMesh.Scripts.Bezier;
 using UnityEngine;
 
