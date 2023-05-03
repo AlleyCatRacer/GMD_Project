@@ -5,6 +5,7 @@ namespace Enemy
     public class EnemyScript : MonoBehaviour
     {
         [SerializeField] public float enemyHealth = 2.0f;
+        [SerializeField] public float enemyDamage = 1.0f;
         [SerializeField] public bool immortal = false;
         private void OnTriggerEnter(Collider other)
         {

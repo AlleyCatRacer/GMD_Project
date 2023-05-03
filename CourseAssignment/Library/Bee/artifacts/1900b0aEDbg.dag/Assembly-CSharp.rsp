@@ -347,6 +347,7 @@
 "Assets/Scripts/Enemy/EnemyScript.cs"
 "Assets/Scripts/Enemy/FollowPathScript.cs"
 "Assets/Scripts/Level/LevelBorderScript.cs"
+"Assets/Scripts/Level/LevelLogicScript.cs"
 "Assets/Scripts/Path/EnemyPrefabReference.cs"
 "Assets/Scripts/Path/WaveReference.cs"
 "Assets/Scripts/Tower/AutoShootingScript.cs"

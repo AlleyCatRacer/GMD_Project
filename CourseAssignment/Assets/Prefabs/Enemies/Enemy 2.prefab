@@ -64,6 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealth: 5
+  enemyDamage: 3
   immortal: 0
 --- !u!54 &6142031593697340370
 Rigidbody:
