@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Projectile_Scripts
+namespace Level
 {
     public class LevelBorderScript : MonoBehaviour
     {

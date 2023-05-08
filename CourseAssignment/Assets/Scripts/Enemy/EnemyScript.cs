@@ -1,6 +1,4 @@
 using System;
-using Projectile_Scripts;
-using Tower;
 using UnityEngine;
 
 namespace Enemy
