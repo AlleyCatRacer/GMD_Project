@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Enemy
@@ -7,6 +9,13 @@ namespace Enemy
         [SerializeField] public float enemyHealth = 2.0f;
         [SerializeField] public float enemyDamage = 1.0f;
         [SerializeField] public bool immortal = false;
+        private EnemyAudioScript audioScript;
+
+        private void Awake()
+        {
+            audioScript = GetComponent<EnemyAudioScript>();
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("Projectile"))
@@ -17,20 +26,28 @@ namespace Enemy
         {
             // Return if the enemy is Immortal
             if (immortal) return;
-            
-            // Reduce Health
-            enemyHealth--;
-            
+
             // Check if Enemy should be killed
-            if (enemyHealth <= 0)
-                OnDeath();
+            if (enemyHealth - 1 <= 0)
+            {
+                StartCoroutine(OnDeath());
+                return;
+            }
+                        
+            // Reduce Health & play damage SFX
+            enemyHealth--;
+            StartCoroutine(OnDamage());
         }
 
-        private void OnDeath()
+        private IEnumerator OnDeath()
         {
-            // For additional behaviour on death
-            // Andreas: EXPLOSIONS!
+            yield return new WaitForSeconds(audioScript.PlayDeathRattle());
             Destroy(gameObject);
+        }
+
+        private IEnumerator OnDamage()
+        {
+            yield return new WaitForSeconds(audioScript.PlayDamageSound());
         }
     }
 }
