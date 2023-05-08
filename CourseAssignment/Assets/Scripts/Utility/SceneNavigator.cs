@@ -1,3 +1,5 @@
+using System;
+using Level;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,19 +7,26 @@ namespace Utility
 {
     public class SceneNavigator : MonoBehaviour
     {
+        [SerializeField] private AudioControllerScript audioScript;
         public static bool GameIsPaused = true;
         public static bool SettingsOpen = false;
+
+        private void Awake()
+        {
+            audioScript = GetComponent<AudioControllerScript>();
+        }
 
         private void Start()
         {
             DontDestroyOnLoad(this);
+            audioScript.PlayMenuMusic();
         }
     
         void Update()
         {
             if(Input.GetKeyDown(KeyCode.P) && !GameIsPaused)
             {
-                UnityEngine.Debug.Log("Attempting to Pause/Resume game");
+                Debug.Log("Attempting to Pause/Resume game");
                 Pause();
             }
 
@@ -56,19 +65,22 @@ namespace Utility
         {
             GameIsPaused = false;
             SceneManager.LoadScene(2);
+            audioScript.PlayGameMusic();
         }
         public void Resume()
         {
-            UnityEngine.Debug.Log("Resuming Game");
+            Debug.Log("Resuming Game");
             Time.timeScale = 1f;
             SceneManager.UnloadSceneAsync(3);
+            audioScript.PlayGameMusic();
             GameIsPaused = false;
         }
         public void Pause()
         {
-            UnityEngine.Debug.Log("Pausing Game");
+            Debug.Log("Pausing Game");
             Time.timeScale = 0f;
             SceneManager.LoadScene(3, LoadSceneMode.Additive);
+            audioScript.PlayMenuMusic();
             GameIsPaused = true;
         }
 
@@ -80,7 +92,7 @@ namespace Utility
         public void QuitGame()
         {
             Application.Quit();
-            UnityEngine.Debug.Log("Quitting game...");
+            Debug.Log("Quitting game...");
         }
         public void OpenSettings()
         {

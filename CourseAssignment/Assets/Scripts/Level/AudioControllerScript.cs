@@ -1,29 +1,50 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Level
 {
     public class AudioControllerScript : MonoBehaviour
     {
-        [SerializeField] private AudioClip menuMusic;
-        [SerializeField] private AudioClip gameMusic;
-        //TODO: Put script on Player - Aldís
-        private AudioSource src;
-        
+        [SerializeField] private AudioSource menuMusic;
+        [SerializeField] private AudioSource gameMusic;
+        [SerializeField] private Slider slider;
+
         private void Awake()
         {
-            src = GetComponent<AudioSource>();
-            src.loop = true;
+            // TODO: Somehow link the slider
+            // slider.onValueChanged.AddListener(OnVolumeChanged);
+        }
+
+        private void OnVolumeChanged(float value)
+        {
+            menuMusic.volume = value;
+            gameMusic.volume = value;
         }
         
-        // TODO: Call from UI methods for switching menu & game music - Aldís
-        private void PlayMenuMusic()
+        public void PlayMenuMusic()
         {
-            src.PlayOneShot(menuMusic);
+            gameMusic.Pause();
+            
+            if (menuMusic.time > 0)
+            {
+                menuMusic.UnPause();
+                return;
+            }
+            menuMusic.Play();
         }
         
-        private void PlayGameMusic()
+        public void PlayGameMusic()
         {
-            src.PlayOneShot(gameMusic);
+            menuMusic.Pause();
+            
+            if (gameMusic.time > 0)
+            {
+                gameMusic.UnPause();
+                return;
+            }
+            gameMusic.Play();
         }
     }
 }
