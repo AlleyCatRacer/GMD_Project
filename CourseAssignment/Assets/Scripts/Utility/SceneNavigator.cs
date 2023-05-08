@@ -10,6 +10,7 @@ namespace Utility
         [SerializeField] private AudioControllerScript audioScript;
         public static bool GameIsPaused = true;
         public static bool SettingsOpen = false;
+        public float highScore;
 
         private void Awake()
         {

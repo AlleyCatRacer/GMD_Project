@@ -1,13 +1,27 @@
 using System;
 using Enemy;
+using TMPro;
 using UnityEngine;
+using Utility;
 
 namespace Level
 {
     public class LevelLogicScript : MonoBehaviour
     {
         [SerializeField] private float lives = 100.0f;
-        
+        public float score;
+        private SceneNavigator navigator;
+        private float highScore;
+        // TODO: Figure out what type the UI text is to able to link it to this variable - Aldís
+        public TextMeshPro highScoreText;
+
+        private void Start()
+        {
+            navigator = GetComponent<SceneNavigator>();
+            highScore = navigator.highScore;
+            UpdateHighScoreDisplay();
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if(!other.gameObject.CompareTag("Enemy")) return;
@@ -24,13 +38,27 @@ namespace Level
             var updatedLives = lives - damage;
             if (updatedLives > 0)
             {
-                lives = updatedLives;
-               UnityEngine. Debug.Log($"Damage taken: {damage}\nLives left: {lives}");
+                lives = updatedLives; 
+                Debug.Log($"Damage taken: {damage}\nLives left: {lives}");
                 return;
             }
             lives = 0;
-            UnityEngine.            Debug.Log("You are dead.");
-            // TODO: Trigger game over UI - Aldís 03.05.23
+            Debug.Log("You are dead.");
+            // TODO: Call navigator to display game over UI - Aldís
+        }
+
+        public void IncrementScore(float addition)
+        {
+            score += addition;
+            if (score > highScore)
+                UpdateHighScoreDisplay();
+        }
+
+        private void UpdateHighScoreDisplay()
+        {
+            highScoreText.text = score.ToString();
+            highScore = score;
+            navigator.highScore = highScore;
         }
     }
 }

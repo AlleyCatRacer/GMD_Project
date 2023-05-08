@@ -13,7 +13,7 @@ namespace Level
 
         private void Awake()
         {
-            // TODO: Somehow link the slider
+            // TODO: Somehow link the slider, maybe put the value float in the scene navigation or game manager? - Aldís
             // slider.onValueChanged.AddListener(OnVolumeChanged);
         }
 

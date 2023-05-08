@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Level;
 using UnityEngine;
 
 namespace Enemy
@@ -10,6 +11,7 @@ namespace Enemy
         public float enemyDamage = 1.0f;
         [SerializeField] public bool immortal = false;
         private EnemyAudioScript audioScript;
+        [SerializeField] private LevelLogicScript levelLogic;
 
         private void Awake()
         {
@@ -31,6 +33,7 @@ namespace Enemy
             // Check if Enemy should be killed
             if (enemyHealth - 1 <= 0)
             {
+                levelLogic.IncrementScore(enemyDamage);
                 StartCoroutine(OnDeath());
                 return;
             }
