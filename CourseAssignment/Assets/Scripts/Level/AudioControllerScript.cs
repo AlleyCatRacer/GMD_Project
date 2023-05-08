@@ -13,7 +13,6 @@ namespace Level
         private void Awake()
         {
             RefreshSettings();
-            // TODO: Somehow link the slider, maybe put the value float in the scene navigation or game manager? - Aldís
         }
 
         private void RefreshSettings()
@@ -22,31 +21,35 @@ namespace Level
             menuMusic.volume = PlayerPrefs.GetFloat("MenuMusicVolume");
             gameMusic.volume = PlayerPrefs.GetFloat("GameMusicVolume");
         }
-        
+
         public void PlayMenuMusic()
         {
+            // Refresh to ensure settings are correct
+            RefreshSettings();
+   
+            // Pause Music
             gameMusic.Pause();
 
+            // Check if the Music is paused mid-way
             if (menuMusic.time > 0)
-            {
                 menuMusic.UnPause();
-                return;
-            }
-
-            menuMusic.Play();
+            else
+                menuMusic.Play();
         }
 
         public void PlayGameMusic()
         {
+            // Refresh to ensure settings are correct
+            RefreshSettings();
+
+            // Pause Music
             menuMusic.Pause();
 
+            // Check if the Music is paused mid-way
             if (gameMusic.time > 0)
-            {
                 gameMusic.UnPause();
-                return;
-            }
-
-            gameMusic.Play();
+            else
+                gameMusic.Play();
         }
     }
 }

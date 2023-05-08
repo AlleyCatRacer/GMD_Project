@@ -343,6 +343,7 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
+"Assets/GameManager.cs"
 "Assets/Scripts/Enemy/EnemyAudioScript.cs"
 "Assets/Scripts/Enemy/EnemyScript.cs"
 "Assets/Scripts/Enemy/FollowPathScript.cs"

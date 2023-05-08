@@ -19,6 +19,7 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Level/SettingsScript.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -35,6 +36,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Discover.Launch.Via.Unity": "true",
+    "TODO_SCOPE": "All Places",
     "WebServerToolWindowFactoryState": "false",
     "vue.rearranger.settings.migration": "true"
   },
@@ -112,6 +114,7 @@
       <workItem from="1683572771869" duration="3476000" />
       <workItem from="1683576669000" duration="1947000" />
       <workItem from="1683579303891" duration="1670000" />
+      <workItem from="1683581141385" duration="4650000" />
     </task>
     <servers />
   </component>

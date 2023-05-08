@@ -12,7 +12,6 @@ namespace Tower
         // Target Info
         private List<Transform> targetLocations = new();
         private Transform currentTarget;
-        public Transform deadTarget;
 
         private void FixedUpdate()
         {
@@ -22,31 +21,50 @@ namespace Tower
         [CanBeNull]
         public Transform GetNextEnemy()
         {
-            return targetLocations.Any() ? targetLocations[0] : null;
+            try
+            {
+                // Returns the First Enemy if any is found. Null otherwise
+                return targetLocations.Any() ? targetLocations[0] : null;
+            }
+            catch (ArgumentNullException)
+            {
+                targetLocations.RemoveAt(0);
+                return null;
+            }
         }
-        
+
         public void AddEnemy(Transform enemy)
         {
             // Check if the enemy is already added
             if (targetLocations.Contains(enemy.transform)) return;
-                
-            // Check if the Enemy is further ahead on the Track than other enemies
-            if (IsFurther(enemy.transform))
-            {
-                targetLocations.Add(enemy.transform);
-            }
-            else 
-            {
-                targetLocations.Insert(0, enemy.transform);
-            }
 
-            currentTarget = enemy;
+            // Check if the Enemy is further ahead on the Track than other enemies
+            if (InFrontOfRest(enemy.transform))
+                targetLocations.Insert(0, enemy.transform);
+            else
+                targetLocations.Add(enemy.transform);
         }
-        
-        private bool IsFurther(Component enemy)
+
+        private bool InFrontOfRest(Component enemy)
         {
-            if (targetLocations.Count < 1) return false;
+            // True if no other enemies are present
+            if (targetLocations.Count < 1) return true;
+
+            // Get the Front Runner
+            Transform frontRunner = GetNextEnemy();
             
+            // False if the Front Runner is not alive
+            if (frontRunner == null)
+                return false;
+            
+            // Get Progress for Front Runner and 
+            var frontRunnerProgress = frontRunner.gameObject.GetComponent<FollowPathScript>().Progress;
+            var newEnemyProgress = enemy.GetComponent<FollowPathScript>().Progress;
+
+            // True if New Enemy is further ahead than the previous Front Runner
+            return frontRunnerProgress < newEnemyProgress;
+
+            /*
             var otherEnemyProgress = 99999999.0f;
             var currentEnemyProgress = 0.0f;
             try
@@ -58,25 +76,11 @@ namespace Tower
             {
                 Debug.Log($"Enemy died during comparison: {e.GetType()}");
             }
-            
+
             return currentEnemyProgress < otherEnemyProgress;
+            */
         }
 
-        public void KillEnemy()
-        {
-            try
-            {
-                targetLocations.Remove(deadTarget);
-                deadTarget = null;
-            }
-            catch (NullReferenceException e)
-            {
-                Debug.Log($"----- Dead enemy not found in target list:\n{e.Message}");
-            }
-            
-            Retarget();
-        }
-        
         public void RemoveEnemy(Transform enemy)
         {
             try
@@ -87,8 +91,8 @@ namespace Tower
             {
                 Debug.Log($"----- Enemy not found in target list:\n{e.Message}");
             }
-            
-            Retarget();
+
+//            Retarget();
         }
 
         private void Retarget()

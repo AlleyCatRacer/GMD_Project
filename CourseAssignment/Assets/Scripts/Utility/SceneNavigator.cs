@@ -1,4 +1,3 @@
-using System;
 using Level;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,82 +6,102 @@ namespace Utility
 {
     public class SceneNavigator : MonoBehaviour
     {
+        // Serialized Fields
         [SerializeField] private AudioControllerScript audioScript;
-        public static bool GameIsPaused = true;
-        public static bool SettingsOpen = false;
-        public float highScore;
-
-        private void Awake()
-        {
-            audioScript = GetComponent<AudioControllerScript>();
-        }
+        
+        // Private Stuff
+        private bool gameIsPaused = true;
+        private bool settingsOpen = false;
+        
+        // Public
+        public int highScore;
 
         private void Start()
         {
-            DontDestroyOnLoad(this);
+            // This makes my ears smile :)
+            // https://youtu.be/Z-WdGYi9Pv4
             audioScript.PlayMenuMusic();
         }
-    
+
         void Update()
         {
-            if(Input.GetKeyDown(KeyCode.P) && !GameIsPaused)
+            // This could probably have been made in a better way (possibly with the new Input System)
+            // But it is the night before deadline, so whatever works will have to do
+            if (gameIsPaused)
             {
-                Debug.Log("Attempting to Pause/Resume game");
-                Pause();
-            }
+                if (settingsOpen)
+                {
+                    if (Input.GetKeyDown(KeyCode.X))
+                        CloseSettings();
+                }
+                else
+                {
+                    if (Input.GetKeyDown(KeyCode.R))
+                        Resume();
 
-            if (Input.GetKeyDown(KeyCode.R) && GameIsPaused && !SettingsOpen)
-            {
-                Resume();
-            }
-        
-            if (Input.GetKeyDown(KeyCode.S) && GameIsPaused && !SettingsOpen)
-            {
-                OpenSettings();
-            }
-        
-            if (Input.GetKeyDown(KeyCode.Q) && GameIsPaused && !SettingsOpen)
-            {
-                QuitGame();
-            }
+                    if (Input.GetKeyDown(KeyCode.S))
+                        OpenSettings();
 
-            if (Input.GetKeyDown(KeyCode.M) && GameIsPaused && !SettingsOpen)
-            {
-                QuitGameMainMenu();
-            }
-        
-            if (Input.GetKeyDown(KeyCode.X) && SettingsOpen)
-            {
-                CloseSettings();
-            }
+                    if (Input.GetKeyDown(KeyCode.Q))
+                        QuitGame();
 
-            if (Input.GetKeyDown(KeyCode.N) && GameIsPaused && !SettingsOpen)
+                    if (Input.GetKeyDown(KeyCode.N))
+                        StartGame();
+
+                    if (Input.GetKeyDown(KeyCode.M))
+                        QuitGameMainMenu();
+                }
+            }
+            else
             {
-                StartGame();
+                if (Input.GetKeyDown(KeyCode.P))
+                    Pause();
             }
         }
 
         public void StartGame()
         {
-            GameIsPaused = false;
+            gameIsPaused = false;
             SceneManager.LoadScene(2);
             audioScript.PlayGameMusic();
         }
+
         public void Resume()
         {
+            // Lock the Mouse to the Center of the screen
+            Cursor.lockState = CursorLockMode.Locked;
             Debug.Log("Resuming Game");
+
+            // Set the Time Scale to start the game
             Time.timeScale = 1f;
+
+            // Unload the Scene
             SceneManager.UnloadSceneAsync(3);
+
+            // Play the Correct Music
             audioScript.PlayGameMusic();
-            GameIsPaused = false;
+
+            // Set the Variable for Keeping Track
+            gameIsPaused = false;
         }
-        public void Pause()
+
+        private void Pause()
         {
+            // Unlock the Cursor
+            Cursor.lockState = CursorLockMode.None;
             Debug.Log("Pausing Game");
+
+            // Freeze the Game
             Time.timeScale = 0f;
+
+            // Load the Scene on top
             SceneManager.LoadScene(3, LoadSceneMode.Additive);
+
+            // Play the correct music (this should maybe not happen here, but it's 23:32, the day before deadline)
             audioScript.PlayMenuMusic();
-            GameIsPaused = true;
+
+            // Track Keeping
+            gameIsPaused = true;
         }
 
         public void QuitGameMainMenu()
@@ -90,23 +109,24 @@ namespace Utility
             Time.timeScale = 0f;
             SceneManager.LoadScene(0);
         }
+
         public void QuitGame()
         {
             Application.Quit();
             Debug.Log("Quitting game...");
         }
+
         public void OpenSettings()
         {
             SceneManager.LoadScene(1, LoadSceneMode.Additive);
-            SettingsOpen = true;
+            settingsOpen = true;
         }
 
-        public void CloseSettings()
+        private void CloseSettings()
         {
             SendMessage("RefreshSettings");
             SceneManager.UnloadSceneAsync(1);
-            SettingsOpen = false;
+            settingsOpen = false;
         }
-
     }
 }

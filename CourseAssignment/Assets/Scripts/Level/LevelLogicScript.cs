@@ -9,16 +9,16 @@ namespace Level
     public class LevelLogicScript : MonoBehaviour
     {
         [SerializeField] private float lives = 100.0f;
-        public float score;
         private SceneNavigator navigator;
-        private float highScore;
+        private int highScore;
+        public int score;
         // TODO: Figure out what type the UI text is to able to link it to this variable - Aldís
-        public TextMeshPro highScoreText;
+        public TextMeshProUGUI highScoreText;
 
         private void Start()
         {
             navigator = GetComponent<SceneNavigator>();
-            highScore = navigator.highScore;
+            highScore = PlayerPrefs.GetInt(nameof(highScore), 0);
             UpdateHighScoreDisplay();
         }
 
@@ -47,18 +47,23 @@ namespace Level
             // TODO: Call navigator to display game over UI - Aldís
         }
 
-        public void IncrementScore(float addition)
+        public void IncreaseScore(int addition)
         {
+            // Increase the current score
             score += addition;
+            // Update HighScore if the new Score is higher
             if (score > highScore)
                 UpdateHighScoreDisplay();
         }
 
         private void UpdateHighScoreDisplay()
         {
-            highScoreText.text = score.ToString();
+            // Save the Score
+            PlayerPrefs.SetInt(nameof(highScore), highScore);
+            
+            // Update the Visuals
+            highScoreText.text = $"{score}";
             highScore = score;
-            navigator.highScore = highScore;
         }
     }
 }

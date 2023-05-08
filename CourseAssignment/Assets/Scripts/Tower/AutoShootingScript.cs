@@ -43,28 +43,13 @@ namespace Tower
         {
             // Check if the incoming Collider belongs to an Enemy
             if (other.gameObject.CompareTag("Enemy"))
-            {
-                Debug.Log("I see it");
                 targetingScript.AddEnemy(other.transform);
-            }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            Debug.Log("I don't see it anymore");
-            targetingScript.RemoveEnemy(other.transform);
-        }
-
-        // Update is called once per frame
-        private void Update()
-        {
-            // Update current target
-            _currentTarget = targetingScript.GetNextEnemy();
-            
-            if (_currentTarget == null)
-            {
-                TargetKilled();
-            }
+            if (other.gameObject.CompareTag("Enemy"))
+                targetingScript.RemoveEnemy(other.transform);
         }
 
         private void FixedUpdate()
@@ -73,39 +58,27 @@ namespace Tower
             _currentCooldown -= Time.deltaTime;
 
             // Update
-            _currentTarget = targetingScript.GetNextEnemy();
+            var possibleTarget = targetingScript.GetNextEnemy();
 
             // Check if Shooting is available and there is a target in range
-            if (_currentCooldown <= 0f && _currentTarget != null)
-            {
-                Shoot();
+            if (_currentCooldown > 0f || possibleTarget == null)
+                return;
+            
+            // Shoot at the enemy
+            Shoot();
 
-                // Check if bullet killed enemy
-                if (_currentTarget == null)
-                {
-                    TargetKilled();
-                }
-
-                // Reset Cooldown
-                _currentCooldown = fireDelay;
-            }
+            // Reset Cooldown
+            _currentCooldown = fireDelay;
         }
 
         private void Shoot()
         {
             // Store target to remove from target list in case it is killed
-            targetingScript.deadTarget = _currentTarget;
             var bullet = Instantiate(bulletPrefab, bulletSpawnLocation.position, Quaternion.identity);
-            bullet.transform.LookAt(_currentTarget, Vector3.up);
+            bullet.transform.LookAt(targetingScript.GetNextEnemy(), Vector3.up);
 
             // Set Timer on Bullet
             Destroy(bullet, _bulletLifeDuration);
-        }
-
-        private void TargetKilled()
-        {
-            Debug.Log("Death");
-            targetingScript.KillEnemy();
         }
     }
 }
