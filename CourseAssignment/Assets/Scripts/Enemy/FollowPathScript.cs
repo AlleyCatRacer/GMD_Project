@@ -2,7 +2,7 @@ using System;
 using SplineMesh.Scripts.Bezier;
 using UnityEngine;
 
-namespace Enemy
+namespace Utility
 {
     public class FollowPathScript : MonoBehaviour
     {

@@ -1,5 +1,6 @@
 using System;
-using System.Collections;
+using Projectile_Scripts;
+using Tower;
 using UnityEngine;
 
 namespace Enemy
@@ -7,14 +8,8 @@ namespace Enemy
     public class EnemyScript : MonoBehaviour
     {
         [SerializeField] public float enemyHealth = 2.0f;
-        [SerializeField] public float enemyDamage = 1.0f;
+        public float enemyDamage = 1.0f;
         [SerializeField] public bool immortal = false;
-        private EnemyAudioScript audioScript;
-
-        private void Awake()
-        {
-            audioScript = GetComponent<EnemyAudioScript>();
-        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -26,28 +21,20 @@ namespace Enemy
         {
             // Return if the enemy is Immortal
             if (immortal) return;
-
-            // Check if Enemy should be killed
-            if (enemyHealth - 1 <= 0)
-            {
-                StartCoroutine(OnDeath());
-                return;
-            }
-                        
-            // Reduce Health & play damage SFX
+            
+            // Reduce Health
             enemyHealth--;
-            StartCoroutine(OnDamage());
+            
+            // Check if Enemy should be killed
+            if (enemyHealth <= 0)
+                OnDeath();
         }
 
-        private IEnumerator OnDeath()
+        private void OnDeath()
         {
-            yield return new WaitForSeconds(audioScript.PlayDeathRattle());
+            // For additional behaviour on death
+            // Andreas: EXPLOSIONS!
             Destroy(gameObject);
-        }
-
-        private IEnumerator OnDamage()
-        {
-            yield return new WaitForSeconds(audioScript.PlayDamageSound());
         }
     }
 }
