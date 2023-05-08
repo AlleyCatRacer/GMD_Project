@@ -103,6 +103,7 @@ namespace Utility
 
         public void CloseSettings()
         {
+            SendMessage("RefreshSettings");
             SceneManager.UnloadSceneAsync(1);
             SettingsOpen = false;
         }

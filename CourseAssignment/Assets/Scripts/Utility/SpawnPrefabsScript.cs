@@ -59,7 +59,7 @@ namespace Utility
                     }
                 }
             }
-            catch (IndexOutOfRangeException e)
+            catch (IndexOutOfRangeException)
             {
                 // No more rounds
                 CancelInvoke(nameof(SetNextWave));
