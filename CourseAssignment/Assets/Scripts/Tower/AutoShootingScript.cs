@@ -44,12 +44,14 @@ namespace Tower
             // Check if the incoming Collider belongs to an Enemy
             if (other.gameObject.CompareTag("Enemy"))
             {
+                Debug.Log("I see it");
                 targetingScript.AddEnemy(other.transform);
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
+            Debug.Log("I don't see it anymore");
             targetingScript.RemoveEnemy(other.transform);
         }
 
@@ -102,6 +104,7 @@ namespace Tower
 
         private void TargetKilled()
         {
+            Debug.Log("Death");
             targetingScript.KillEnemy();
         }
     }

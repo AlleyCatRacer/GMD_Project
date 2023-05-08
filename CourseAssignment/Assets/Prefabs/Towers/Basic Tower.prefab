@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7174720972909660320}
   - component: {fileID: 7174720972909660321}
   - component: {fileID: 7174720972909660326}
+  - component: {fileID: 1970257233514201214}
   m_Layer: 0
   m_Name: Basic Tower
   m_TagString: Tower
@@ -51,7 +52,6 @@ MonoBehaviour:
   bulletPrefab: {fileID: 6653224050011556356, guid: daf27b0f7c1632a4badb3e24ac8c206b, type: 3}
   bulletSpawnLocation: {fileID: 7174720973996854402}
   fireDelay: 0.5
-  spinSpeed: 0.1
 --- !u!135 &7174720972909660326
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -65,6 +65,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1970257233514201214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7174720972909660327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0b1e39d44a592343b39db63b82f7acd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deadTarget: {fileID: 0}
 --- !u!1 &7174720973106293433
 GameObject:
   m_ObjectHideFlags: 0
