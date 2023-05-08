@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Enemy;
 using UnityEngine;
+using Utility;
 
 namespace Tower
 {
@@ -47,13 +47,15 @@ namespace Tower
         private void OnTriggerEnter(Collider other)
         {
             // Check if the incoming Collider belongs to an Enemy
-            if (other.gameObject.CompareTag("Enemy"))
+            if (other.transform.parent.CompareTag("Enemy"))
             {
                 // Check if the enemy is already added
-                if (_targetLocations.Contains(other.transform)) return;
+                if (_targetLocations.Contains(other.transform.parent)) return;
                 
                 // Check if the Enemy is further ahead on the Track than other enemies
-                if (IsFurther(other.transform))
+                if (_targetLocations.Count < 1 ||
+                    !(other.GetComponentInParent<FollowPathScript>().Progress >
+                      _targetLocations[0].GetComponentInParent<FollowPathScript>().Progress))
                 {
                     _targetLocations.Add(other.transform);
                 }
@@ -62,24 +64,6 @@ namespace Tower
                     _targetLocations.Insert(0, other.transform);
                 }
             }
-        }
-
-        private bool IsFurther(Component enemy)
-        {
-            if (_targetLocations.Count < 1) return false;
-            
-            var otherEnemyProgress = 99999999.0f;
-            var currentEnemyProgress = 0.0f;
-            try
-            {
-                otherEnemyProgress = _targetLocations[0].GetComponent<FollowPathScript>().Progress;
-                currentEnemyProgress = enemy.GetComponent<FollowPathScript>().Progress;
-            }
-            catch (Exception e)
-            {
-                UnityEngine.Debug.Log($"Enemy died during comparison: {e.GetType()}");
-            }
-            return currentEnemyProgress > otherEnemyProgress;
         }
 
         private void OnTriggerExit(Collider other)
