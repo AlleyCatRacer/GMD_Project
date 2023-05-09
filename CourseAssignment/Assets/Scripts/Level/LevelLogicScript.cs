@@ -8,18 +8,25 @@ namespace Level
 {
     public class LevelLogicScript : MonoBehaviour
     {
-        [SerializeField] private float lives = 100.0f;
-        private SceneNavigator navigator;
+        [SerializeField] private int lives = 100;
+
         private int highScore;
-        public int score;
-        // TODO: Figure out what type the UI text is to able to link it to this variable - Aldís
+        private int currentScore;
+        public TextMeshProUGUI currentScoreText;
         public TextMeshProUGUI highScoreText;
+        public TextMeshProUGUI livesText;
 
         private void Start()
         {
-            navigator = GetComponent<SceneNavigator>();
             highScore = PlayerPrefs.GetInt(nameof(highScore), 0);
             UpdateHighScoreDisplay();
+        }
+
+        private void FixedUpdate()
+        {
+            UpdateHighScoreDisplay();
+            UpdateLivesDisplay();
+            UpdateCurrentScoreDisplay();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -35,7 +42,8 @@ namespace Level
         /// <param name="damage">Float of how many lives an enemy takes if they make it to the exit portal.</param>
         private void DecrementLives(float damage)
         {
-            var updatedLives = lives - damage;
+            int temp = (int) damage;
+            var updatedLives = lives - temp;
             if (updatedLives > 0)
             {
                 lives = updatedLives; 
@@ -50,9 +58,9 @@ namespace Level
         public void IncreaseScore(int addition)
         {
             // Increase the current score
-            score += addition;
+            currentScore += addition;
             // Update HighScore if the new Score is higher
-            if (score > highScore)
+            if (currentScore > highScore)
                 UpdateHighScoreDisplay();
         }
 
@@ -61,9 +69,33 @@ namespace Level
             // Save the Score
             PlayerPrefs.SetInt(nameof(highScore), highScore);
             
+            if (highScoreText == null) return;
+            
             // Update the Visuals
-            highScoreText.text = $"{score}";
-            highScore = score;
+            highScoreText.text = $"{currentScore}";
+            highScore = currentScore;
+        }
+        
+        private void UpdateCurrentScoreDisplay()
+        {
+            // Save the Score
+            PlayerPrefs.SetInt(nameof(currentScore), currentScore);
+            
+            if (currentScoreText == null) return;
+            
+            // Update the Visuals
+            currentScoreText.text = $"{currentScore}";
+        }
+        
+        private void UpdateLivesDisplay()
+        {
+            // Save the Score
+            PlayerPrefs.SetInt(nameof(lives), lives);
+            
+            if (livesText == null) return;
+            
+            // Update the Visuals
+            livesText.text = $"Lives: {currentScore}";
         }
     }
 }
