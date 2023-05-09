@@ -49,20 +49,28 @@ namespace Tower
         private void OnTriggerExit(Collider other)
         {
             if (other.gameObject.CompareTag("Enemy"))
-                targetingScript.RemoveEnemy(other.transform);
+                targetingScript.EnemyOutOfRange(other.transform);
         }
 
         private void FixedUpdate()
         {
             // Reduce Cooldown
             _currentCooldown -= Time.deltaTime;
+            
+            // If target was killed let targeting know
+            if (_currentTarget == null)
+            {
+                TargetKilled();
+            }
+            
+            // Update current target
+            _currentTarget = targetingScript.GetNextEnemy();
 
-            // Update
-            var possibleTarget = targetingScript.GetNextEnemy();
-
-            // Check if Shooting is available and there is a target in range
-            if (_currentCooldown > 0f || possibleTarget == null)
+            // Check if Shooting is available
+            if (_currentCooldown > 0f || _currentTarget == null)
+            {
                 return;
+            }
             
             // Shoot at the enemy
             Shoot();
@@ -74,11 +82,19 @@ namespace Tower
         private void Shoot()
         {
             // Store target to remove from target list in case it is killed
+            targetingScript.deadTarget = _currentTarget;
+            
+            // Create & fire bullet
             var bullet = Instantiate(bulletPrefab, bulletSpawnLocation.position, Quaternion.identity);
             bullet.transform.LookAt(targetingScript.GetNextEnemy(), Vector3.up);
 
             // Set Timer on Bullet
             Destroy(bullet, _bulletLifeDuration);
+        }
+        
+        private void TargetKilled()
+        {
+            targetingScript.KillEnemy();
         }
     }
 }

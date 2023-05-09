@@ -12,6 +12,7 @@ namespace Tower
         // Target Info
         private List<Transform> targetLocations = new();
         private Transform currentTarget;
+        public Transform deadTarget;
 
         private void FixedUpdate()
         {
@@ -28,7 +29,7 @@ namespace Tower
             }
             catch (ArgumentNullException)
             {
-                targetLocations.RemoveAt(0);
+                EnemyOutOfRange(targetLocations[0]);
                 return null;
             }
         }
@@ -39,13 +40,13 @@ namespace Tower
             if (targetLocations.Contains(enemy.transform)) return;
 
             // Check if the Enemy is further ahead on the Track than other enemies
-            if (InFrontOfRest(enemy.transform))
+            if (ThisEnemyIsInFrontOfRest(enemy.transform))
                 targetLocations.Insert(0, enemy.transform);
             else
                 targetLocations.Add(enemy.transform);
         }
 
-        private bool InFrontOfRest(Component enemy)
+        private bool ThisEnemyIsInFrontOfRest(Component enemy)
         {
             // True if no other enemies are present
             if (targetLocations.Count < 1) return true;
@@ -57,11 +58,12 @@ namespace Tower
             if (frontRunner == null)
                 return false;
             
-            // Get Progress for Front Runner and 
+            // Get Progress for Front Runner and other enemy
             var frontRunnerProgress = frontRunner.gameObject.GetComponent<FollowPathScript>().Progress;
             var newEnemyProgress = enemy.GetComponent<FollowPathScript>().Progress;
 
             // True if New Enemy is further ahead than the previous Front Runner
+            Debug.Log("this enemy is further");
             return frontRunnerProgress < newEnemyProgress;
 
             /*
@@ -81,7 +83,7 @@ namespace Tower
             */
         }
 
-        public void RemoveEnemy(Transform enemy)
+        public void EnemyOutOfRange(Transform enemy)
         {
             try
             {
@@ -91,8 +93,21 @@ namespace Tower
             {
                 Debug.Log($"----- Enemy not found in target list:\n{e.Message}");
             }
-
-//            Retarget();
+        }
+        
+        public void KillEnemy()
+        {
+            try
+            {
+                targetLocations.Remove(deadTarget);
+                deadTarget = null;
+            }
+            catch (NullReferenceException e)
+            {
+                Debug.Log($"----- Dead enemy not found in target list:\n{e.Message}");
+            }
+            
+            Retarget();
         }
 
         private void Retarget()
