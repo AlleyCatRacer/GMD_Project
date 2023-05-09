@@ -10,7 +10,7 @@ namespace Utility
         [SerializeField] private AudioControllerScript audioScript;
         
         // Private Stuff
-        private bool gameIsPaused = true;
+        private bool gameIsPaused = false;
         private bool settingsOpen = false;
         
         // Public
@@ -29,39 +29,30 @@ namespace Utility
             // But it is the night before deadline, so whatever works will have to do
             if (gameIsPaused)
             {
-                if (settingsOpen)
-                {
-                    if (Input.GetKeyDown(KeyCode.X))
-                        CloseSettings();
-                }
-                else
-                {
-                    if (Input.GetKeyDown(KeyCode.R))
+                if (Input.GetKeyDown(KeyCode.R))
                         Resume();
 
-                    if (Input.GetKeyDown(KeyCode.S))
-                        OpenSettings();
-
-                    if (Input.GetKeyDown(KeyCode.Q))
-                        QuitGame();
-
-                    if (Input.GetKeyDown(KeyCode.N))
-                        StartGame();
-
-                    if (Input.GetKeyDown(KeyCode.M))
+                if (Input.GetKeyDown(KeyCode.M))
                         QuitGameMainMenu();
-                }
             }
             else
             {
                 if (Input.GetKeyDown(KeyCode.P))
                     Pause();
             }
+
+            if (settingsOpen)
+            {
+                if (Input.GetKeyDown(KeyCode.X))
+                    CloseSettings();
+            }
+            // TODO: add this reference for when the game over is displaying 
+            //if (Input.GetKeyDown(KeyCode.T))
+            //    StartGame();
         }
 
         public void StartGame()
         {
-            gameIsPaused = false;
             SceneManager.LoadScene(2);
             audioScript.PlayGameMusic();
         }
