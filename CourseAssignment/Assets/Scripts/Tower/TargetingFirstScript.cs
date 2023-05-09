@@ -65,22 +65,6 @@ namespace Tower
             // True if New Enemy is further ahead than the previous Front Runner
             Debug.Log("this enemy is further");
             return frontRunnerProgress < newEnemyProgress;
-
-            /*
-            var otherEnemyProgress = 99999999.0f;
-            var currentEnemyProgress = 0.0f;
-            try
-            {
-                otherEnemyProgress = currentTarget.GetComponent<FollowPathScript>().Progress;
-                currentEnemyProgress = enemy.GetComponent<FollowPathScript>().Progress;
-            }
-            catch (Exception e)
-            {
-                Debug.Log($"Enemy died during comparison: {e.GetType()}");
-            }
-
-            return currentEnemyProgress < otherEnemyProgress;
-            */
         }
 
         public void EnemyOutOfRange(Transform enemy)

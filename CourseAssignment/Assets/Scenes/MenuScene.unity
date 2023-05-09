@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 266851525}
   - component: {fileID: 266851530}
   - component: {fileID: 266851531}
+  - component: {fileID: 266851532}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -265,6 +266,22 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &266851532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266851524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a5bc1f146cee44da647d742dced1e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lives: 100
+  currentScoreText: {fileID: 0}
+  highScoreText: {fileID: 1513788902}
+  livesText: {fileID: 0}
 --- !u!1 &477278341
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,8 +810,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lives: 100
-  score: 0
+  currentScoreText: {fileID: 0}
   highScoreText: {fileID: 1513788902}
+  livesText: {fileID: 0}
 --- !u!114 &728207924 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9124935666352170382, guid: c3c0247eeab24450fa3b59fce63167d9, type: 3}
@@ -1469,8 +1487,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lives: 100
-  score: 0
+  currentScoreText: {fileID: 0}
   highScoreText: {fileID: 1513788902}
+  livesText: {fileID: 0}
 --- !u!1 &1544525487
 GameObject:
   m_ObjectHideFlags: 0
