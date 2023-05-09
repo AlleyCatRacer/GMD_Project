@@ -3,6 +3,7 @@
 ## Contents
 
 1. <a href=#poc>Proof of Concept
+2. [Game demo](https://youtu.be/oPT4gsDOe7Q)
 
 ## Proof of Concept (but plural)<span id=poc/>
 
