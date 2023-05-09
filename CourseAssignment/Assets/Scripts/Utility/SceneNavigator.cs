@@ -10,11 +10,11 @@ namespace Utility
         [SerializeField] private AudioControllerScript audioScript;
         
         // Private Stuff
-        private bool gameIsPaused = true;
+        private bool gameIsPaused => Time.timeScale == 0;
         private bool settingsOpen = false;
         
         // Public
-        public int highScore;
+        public int HighScore => PlayerPrefs.GetInt(nameof(HighScore));
 
         private void Start()
         {
@@ -61,7 +61,7 @@ namespace Utility
 
         public void StartGame()
         {
-            gameIsPaused = false;
+            // gameIsPaused = false;
             SceneManager.LoadScene(2);
             audioScript.PlayGameMusic();
         }
@@ -82,7 +82,7 @@ namespace Utility
             audioScript.PlayGameMusic();
 
             // Set the Variable for Keeping Track
-            gameIsPaused = false;
+            // gameIsPaused = false;
         }
 
         private void Pause()
@@ -101,7 +101,7 @@ namespace Utility
             audioScript.PlayMenuMusic();
 
             // Track Keeping
-            gameIsPaused = true;
+            // gameIsPaused = true;
         }
 
         public void QuitGameMainMenu()

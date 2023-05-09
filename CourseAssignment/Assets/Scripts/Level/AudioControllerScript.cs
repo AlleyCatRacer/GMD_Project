@@ -13,6 +13,7 @@ namespace Level
         private void Awake()
         {
             RefreshSettings();
+            PlayMenuMusic();
         }
 
         private void RefreshSettings()
@@ -24,32 +25,38 @@ namespace Level
 
         public void PlayMenuMusic()
         {
-            // Refresh to ensure settings are correct
-            RefreshSettings();
+
    
             // Pause Music
-            gameMusic.Pause();
+            if (gameMusic.isPlaying)
+                gameMusic.Pause();
 
             // Check if the Music is paused mid-way
             if (menuMusic.time > 0)
                 menuMusic.UnPause();
             else
                 menuMusic.Play();
+            
+            // Refresh to ensure settings are correct
+            RefreshSettings();
         }
 
         public void PlayGameMusic()
         {
-            // Refresh to ensure settings are correct
-            RefreshSettings();
+
 
             // Pause Music
-            menuMusic.Pause();
+            if (menuMusic.isPlaying)
+                menuMusic.Pause();
 
             // Check if the Music is paused mid-way
             if (gameMusic.time > 0)
                 gameMusic.UnPause();
             else
                 gameMusic.Play();
+            
+            // Refresh to ensure settings are correct
+            RefreshSettings();
         }
     }
 }
