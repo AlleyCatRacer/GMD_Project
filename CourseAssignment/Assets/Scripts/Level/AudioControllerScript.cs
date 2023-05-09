@@ -43,8 +43,6 @@ namespace Level
 
         public void PlayGameMusic()
         {
-
-
             // Pause Music
             if (menuMusic.isPlaying)
                 menuMusic.Pause();

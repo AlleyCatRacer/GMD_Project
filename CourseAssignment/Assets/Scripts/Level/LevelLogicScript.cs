@@ -9,7 +9,6 @@ namespace Level
     public class LevelLogicScript : MonoBehaviour
     {
         [SerializeField] private int lives = 100;
-
         private int highScore;
         private int currentScore;
         public TextMeshProUGUI currentScoreText;

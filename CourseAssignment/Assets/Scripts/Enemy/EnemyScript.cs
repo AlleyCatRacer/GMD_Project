@@ -13,8 +13,6 @@ namespace Enemy
         public float enemyDamage = 1.0f;
         private EnemyAudioScript audioScript;
 
-        // private GameManager _manager;
-
         private void Awake()
         {
             audioScript = GetComponent<EnemyAudioScript>();
@@ -22,7 +20,6 @@ namespace Enemy
             {
                 levelLogic = FindObjectOfType<LevelLogicScript>();
             }
-            // _manager = FindObjectOfType<GameManager>();
         }
 
 
@@ -40,7 +37,6 @@ namespace Enemy
             // Check if Enemy should be killed
             if (enemyHealth - 1 <= 0)
             {
-                // _manager.SendMessage("IncreaseScore", 10);
                 levelLogic.IncreaseScore(10);
                 StartCoroutine(OnDeath());
                 return;
